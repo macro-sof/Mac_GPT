@@ -1,0 +1,337 @@
+{
+  "name": "MacGPT",
+  "displayName": "MacGPT: write and improve code using AI",
+  "description": "Use MacGPT and GPT4 right inside the IDE to enhance and automate your coding with AI-powered assistance (unofficial)",
+  "version": "0.0.2",
+  "publisher": "Macrosoft",
+  "icon": "resources/extensionIcon.png",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/ndasmacrosoft/MacGPT"
+  },
+  "engines": {
+    "vscode": "^1.73.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "macgpt",
+    "chatgpt",
+    "openai",
+    "gpt3",
+    "gpt4",
+    "copilot",
+    "ai",
+    "explain",
+    "find bugs",
+    "code inspection", 
+    "explain ",
+    "refactor"
+  ],
+  "activationEvents": [
+    "onView:macgpt.chatView",
+    "onCommand:macgpt.ask",
+    "onCommand:macgpt.explain",
+    "onCommand:macgpt.refactor",
+    "onCommand:macgpt.optimize",
+    "onCommand:macgpt.Codeinspection",
+    "onCommand:macgpt.documentation",
+    "onCommand:macgpt.generateunittest",
+    "onCommand:macgpt.seleniumtestcase"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "macgpt.ask",
+        "title": "Ask MacGPT"
+      },
+      {
+        "command": "macgpt.explain",
+        "title": "MacGPT: Explain selection"
+      },
+      {
+        "command": "macgpt.refactor",
+        "title": "MacGPT: Refactor selection"
+      },
+      {
+        "command": "macgpt.Codeinspection",
+        "title": "MacGPT: Find problems"
+      },
+      {
+        "command": "macgpt.optimize",
+        "title": "MacGPT: Optimize selection"
+      },
+      {
+        "command": "macgpt.documentation",
+        "title": "MacGPT: Write documentation"
+      },
+      {
+        "command": "macgpt.resetConversation",
+        "title": "Reset MacGPT conversation"
+      },
+      {
+        "command": "macgpt.generateunittest",
+        "title": "MacGPT: Generate Unit Test"
+      },
+      {
+        "command": "macgpt.seleniumtestcase",
+        "title": "MacGPT: Generate Unit Test for Selenium"
+      },
+      {
+        "command": "macgpt.reacttestcase",
+        "title": "MacGPT: Generate Unit Test for React"
+      },
+      {
+        "command": "macgpt.tryAgain",
+        "title": "Retry MacGPT request"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "macgpt.ask",
+          "when": "editorTextFocus",
+          "group": "macgpt-menu-group@1"
+        },
+        {
+          "command": "macgpt.explain",
+          "when": "editorHasSelection",
+          "group": "macgpt-menu-group@2"
+        },
+        {
+          "command": "macgpt.refactor",
+          "when": "editorHasSelection",
+          "group": "macgpt-menu-group@3"
+        },
+        {
+          "command": "macgpt.Codeinspection",
+          "when": "editorHasSelection",
+          "group": "macgpt-menu-group@4"
+        },
+        {
+          "command": "macgpt.optimize",
+          "when": "editorHasSelection",
+          "group": "macgpt-menu-group@5"
+        },
+        {
+          "command": "macgpt.documentation",
+          "when": "editorHasSelection",
+          "group": "macgpt-menu-group@6"
+        },        
+        {
+          "command": "macgpt.generateunittest",
+          "when": "editorHasSelection",
+          "group": "macgpt-menu-group@7"
+        },
+        {
+          "command": "macgpt.seleniumtestcase",
+          "when": "editorHasSelection",
+          "group": "macgpt-menu-group@8"
+        },  
+        {
+          "command": "macgpt.reacttestcase",
+          "when": "editorHasSelection",
+          "group": "macgpt-menu-group@9"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "macgpt.ask"
+        },
+        {
+          "command": "macgpt.explain",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "macgpt.refactor",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "macgpt.Codeinspection",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "macgpt.optimize",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "macgpt.documentation",
+          "when": "editorHasSelection"
+        },       
+        {
+          "command": "macgpt.generateunittest",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "macgpt.seleniumtestcase",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "macgpt.reacttestcase",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "macgpt.resetConversation"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "macgpt",
+          "title": "MacGPT",
+          "icon": "resources/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "macgpt": [
+        {
+          "type": "webview",
+          "id": "macgpt.chatView",
+          "name": "MacGPT"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "MacGPT",
+      "type": "object",
+      "properties": {
+        "macgpt.apiKey": {
+          "markdownDescription": "OpenAI API key from [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys)",
+          "type": "string",
+          "order": 0
+        },
+        "macgpt.apiUrl": {
+          "markdownDescription": "OpenAI API URL or other custom API URL. Defaults to [https://api.openai.com/v1](https://api.openai.com/v1)",
+          "type": "string",
+          "default": "https://api.openai.com/v1",
+          "order": 1
+        },
+        "macgpt.model": {
+          "type": "string",
+          "enum": [
+            "gpt-3.5-turbo",
+            "gpt-4"
+          ],
+          "default": "gpt-3.5-turbo",
+          "description": "Which GPT model to use",
+          "order": 1
+        },
+        "macgpt.pasteOnClick": {
+          "type": "boolean",
+          "default": true,
+          "description": "Paste the code from a codeblock inside the response into the editor when you click on it",
+          "order": 2
+        },
+        "macgpt.promptPrefix.explain": {
+          "type": "string",
+          "default": "Explain what this code does: ",
+          "description": "The prompt prefix used for explaining the selected code",
+          "order": 3
+        },
+        "macgpt.promptPrefix.refactor": {
+          "type": "string",
+          "default": "Refactor this code and explain what's changed: ",
+          "description": "The prompt prefix used for refactoring the selected code",
+          "order": 4
+        },
+        "macgpt.promptPrefix.Codeinspection": {
+          "type": "string",
+          "default": "Find problems with the following code, fix them and explain what was wrong (Do not change anything else, if there are no problems say so): ",
+          "description": "The prompt prefix used for finding problems in the selected code",
+          "order": 5
+        },
+        "macgpt.promptPrefix.documentation": {
+          "type": "string",
+          "default": "Write documentation inside code: ",
+          "description": "The prompt prefix used for writing documentation for the selected code",
+          "order": 7
+        },
+        "macgpt.promptPrefix.optimize": {
+          "type": "string",
+          "default": "Optimize the following code if there is anything to improve, if not say so: ",
+          "description": "The prompt prefix used for optimizing the selected code",
+          "order": 6
+        },
+        "macgpt.keepConversation": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep the conversation going by using the same conversation ID for all requests (allows follow-up questions)",
+          "order": 8
+        },
+        "macgpt.timeoutLength": {
+          "type": "number",
+          "default": "120",
+          "description": "How long should the request wait for a response before timing out (in seconds)",
+          "order": 9
+        },
+        "macgpt.selectedInsideCodeblock": {
+          "type": "boolean",
+          "default": true,
+          "description": "Append selected code as a codeblock (```...code...```) instead of plain text",
+          "order": 10
+        },
+        "macgpt.codeblockWithLanguageId": {
+          "type": "boolean",
+          "default": true,
+          "description": "Append language id of the selected code to the codeblock (```language...code...```)",
+          "order": 11
+        },
+        "macgpt.promptPrefix.generateunittest": {
+          "type": "string",
+          "default": "Write parameterized unit test for the selection",
+          "description": "Write parameterized test case for the selection",
+          "order": 12
+        },
+        "macgpt.promptPrefix.seleniumtestcase": {
+          "type": "string",
+          "default": "Generate unit test for Selenium: ",
+          "description": "The prompt prefix used for creating unit test from class",
+          "order": 12
+        },
+        "macgpt.promptPrefix.reacttestcase": {
+          "type": "string",
+          "default": "Generate unit test for React: ",
+          "description": "The prompt prefix used for creating unit test from react class",
+          "order": 12
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "update-package-lock": "npm install --package-lock-only"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.73.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.9.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "chatgpt": "^5.2.2",
+    "gpt3-tokenizer": "^1.1.5",
+    "node-fetch": "^3.3.0"
+  }
+}
